@@ -21,10 +21,17 @@ app.get('/api/courses', (req, res) => {
 });
 
 app.post('/api/courses', (req, res) => {
+    const schema = Joi.object({
+        name: Joi.string().min(3).required()
+    });
 
-    if(!req.body.name || req.body.name.length < 3) {
+    const result = schema.validate(req.body);
+    console.log(result);
+
+    if(result.error) {
         //400 bad request
-        res.status(400).send('Name is required and should be min 3 characters');
+        res.status(400).send(result.error.details[0].message);
+        return;
     }
 
     const course = {
