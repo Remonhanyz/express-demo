@@ -2,6 +2,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json()); //important middleware
+
 //create dummy database
 const courses = [
     { id: 1, name: 'course1'},
