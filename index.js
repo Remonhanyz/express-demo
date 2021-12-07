@@ -2,33 +2,30 @@
 const express = require('express');
 const app = express();
 
+//create dummy database
+const courses = [
+    { id: 1, name: 'course1'},
+    { id: 2, name: 'course2'},
+    { id: 3, name: 'course3'},
+]
+
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
 app.get('/api/courses', (req, res) => {
-    res.send([1, 2, 3]);
+    res.send(courses);
 })
 
-// Rout Parameters
-
-// // returns back the id of this specific course
-// app.get('/api/courses/:id', (req, res) => {
-//     res.send(req.params.id);
-// })
-
-// // returns back the year & month as object based on the requested URL of this specific course
-// //eg: localhost:5000/api/courses/2018/1
-// app.get('/api/courses/:year/:month', (req, res) => {
-//     res.send(req.params);
-// })
-
-// query stream parameters
-
-// returns back the query stream parameters as an object based on URL
-//eg: localhost:5000/api/courses/2018/1?sortBy=name
+// search in database
+//eg: localhost:5000/api/courses/1
 app.get('/api/courses/:id', (req, res) => {
-    res.send(req.query);
+    //search the array for the requested id
+    let course = courses.find(c => c.id === parseInt(req.params.id));
+    //return a status code 404 if id is not found
+    if (!course) res.status(404).send('The course with the given ID was not found')
+    //return data
+    res.send(course);
 })
 
 // Listen on port 3000
