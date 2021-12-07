@@ -15,7 +15,19 @@ app.get('/', (req, res) => {
 
 app.get('/api/courses', (req, res) => {
     res.send(courses);
-})
+});
+
+app.post('/appi/courses', (req, res) => {
+    const course = {
+        id: courses.length+1,
+        name: req.body.name
+    };
+    //add the new data to database
+    courses.push(course);
+    //return the added data to the user 
+    res.send(course);
+});
+
 
 // search in database
 //eg: localhost:5000/api/courses/1
