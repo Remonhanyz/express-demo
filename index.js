@@ -47,7 +47,10 @@ app.put('/api/courses/:id', (req, res) =>{
         //search the array for the requested id
     let course = courses.find(c => c.id === parseInt(req.params.id));
         //return a status code 404 if id is not found
-    if (!course) res.status(404).send('The course with the given ID was not found')
+    if (!course) {
+        res.status(404).send('The course with the given ID was not found')
+        return;
+    }
     
     //validate
     // if in valid return 404
@@ -65,13 +68,34 @@ app.put('/api/courses/:id', (req, res) =>{
 
 })
 
+app.delete('/api/courses/:id', (req, res) => {
+    // Look up the course
+    // if doesn't exist return 404
+        //search the array for the requested id
+    let course = courses.find(c => c.id === parseInt(req.params.id));
+        //return a status code 404 if id is not found
+    if (!course) {
+        res.status(404).send('The course with the given ID was not found')
+        return;
+    }
+    //delete the course
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
+
+    //return updated course to client
+    res.send(course);
+})
+
 // search in database
 //eg: localhost:5000/api/courses/1
 app.get('/api/courses/:id', (req, res) => {
     //search the array for the requested id
     let course = courses.find(c => c.id === parseInt(req.params.id));
     //return a status code 404 if id is not found
-    if (!course) res.status(404).send('The course with the given ID was not found')
+    if (!course) {
+        res.status(404).send('The course with the given ID was not found')
+        return;
+    }
     //return data
     res.send(course);
 })
