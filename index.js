@@ -3,7 +3,10 @@ const Joi = require('joi'); //used for input validation, it returns a class
 const express = require('express');
 const app = express();
 
-app.use(express.json()); //important middleware
+app.use(express.json()); //important middleware that converts body to JSON
+app.use((req, res, nex) => {
+    next(); //go to next middleware in the pipe line
+});
 
 //create dummy database
 const courses = [
@@ -14,14 +17,11 @@ const courses = [
 
 app.get('/', (req, res) => {
     res.send('Hello World');
-});
-
-app.get('/api/courses', (req, res) => {
-    res.send(courses);
-});
+}//this function can be considered as a middleware
+);
 
 app.post('/api/courses', (req, res) => {
-    const result = validayeCourse(req.body);
+    const result = validateCourse(req.body);
     console.log(result);
 
     if(result.error) {
@@ -54,7 +54,7 @@ app.put('/api/courses/:id', (req, res) =>{
     
     //validate
     // if in valid return 404
-    const result = validayeCourse(req.body);
+    const result = validateCourse(req.body);
     if(result.error) {
         //400 bad request
         res.status(400).send(result.error.details[0].message);
@@ -100,7 +100,7 @@ app.get('/api/courses/:id', (req, res) => {
     res.send(course);
 })
 
-function validayeCourse(course) {
+function validateCourse(course) {
     const schema = Joi.object({
         name: Joi.string().min(3).required()
     });
