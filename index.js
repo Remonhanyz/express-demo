@@ -2,11 +2,10 @@
 const Joi = require('joi'); //used for input validation, it returns a class
 const express = require('express');
 const app = express();
+const log = require('./logger');
 
 app.use(express.json()); //important middleware that converts body to JSON
-app.use((req, res, nex) => {
-    next(); //go to next middleware in the pipe line
-});
+app.use(log);
 
 //create dummy database
 const courses = [
