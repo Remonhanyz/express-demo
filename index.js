@@ -6,12 +6,19 @@ const express = require("express");
 const app = express();
 const log = require("./logger");
 
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`); //returns the state of current inviroment (returns undefined by default)
+console.log(`app: ${app.get('env')}`) //returns the state of current inviroment (returns development by default)
+
 app.use(express.json()); //important middleware that converts body to JSON
 app.use(log);
 app.use(express.urlencoded({ extended: true })); // do the same thing as express.json but with html forms
 app.use(express.static("public")); //middleware to serve static files (such as css & images ..etc) to the root of the site
 app.use(helmet()) //for security purposes
-app.use(morgan('tiny')) //logging http requests
+
+if (app.get('env') == 'development') {
+  app.use(morgan('tiny')) //logging http requests
+  console.log('Morgan enabled...')
+}
 
 //create dummy database
 const courses = [
