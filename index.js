@@ -9,6 +9,9 @@ const express = require("express");
 const app = express();
 const log = require("./logger");
 
+app.set('view engine', 'pug') //to set the view engine for rendering HTML
+app.set('views', './views') //to specify where the HTML files (views) are
+
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`); //returns the state of current inviroment (returns undefined by default)
 console.log(`app: ${app.get('env')}`) //returns the state of current inviroment (returns development by default)
 
@@ -39,8 +42,8 @@ const courses = [
 ];
 
 app.get("/", (req, res) => {
-    res.send("Hello World");
-  });
+    res.render('index', {title: 'My Express App', message: 'Hello'}) //to render a specific HTML file
+});
 
 app.post("/api/courses", (req, res) => {
   const result = validateCourse(req.body);
