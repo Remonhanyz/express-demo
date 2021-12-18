@@ -1,4 +1,5 @@
 // Build a web server
+const config = require("config")
 const helmet = require("helmet");
 const morgan = require('morgan')
 const Joi = require("joi"); //used for input validation, it returns a class
@@ -14,6 +15,11 @@ app.use(log);
 app.use(express.urlencoded({ extended: true })); // do the same thing as express.json but with html forms
 app.use(express.static("public")); //middleware to serve static files (such as css & images ..etc) to the root of the site
 app.use(helmet()) //for security purposes
+
+//Configuration
+console.log('Application Name: ' + config.get('name'))
+console.log('Mail Server: ' + config.get('mail.host'))
+console.log('Mail Password: ' + config.get('mail.password')) //it reads the password from the enviroment variables (the enviroment variable is app_password and it was maped to password in the file custom-enviroment-variables.json) (you better store passwords in an enviroment variable than in a config file) (use export app_password in the terminal to set the enviroment variable)
 
 if (app.get('env') == 'development') {
   app.use(morgan('tiny')) //logging http requests
