@@ -1,4 +1,6 @@
 // Build a web server
+const startupDebugger = require('debug')('app:startup') //to define the name space for debugging (use: 'export DEBUG=app:startup' to define the name sapce)
+const dbDebugger = require('debug')('app:db') //to define the name space for debugging
 const config = require("config")
 const helmet = require("helmet");
 const morgan = require('morgan')
@@ -23,8 +25,11 @@ console.log('Mail Password: ' + config.get('mail.password')) //it reads the pass
 
 if (app.get('env') == 'development') {
   app.use(morgan('tiny')) //logging http requests
-  console.log('Morgan enabled...')
+  startupDebugger('Morgan enabled...')
 }
+
+//database debugging
+dbDebugger('Connected to the database...')
 
 //create dummy database
 const courses = [
