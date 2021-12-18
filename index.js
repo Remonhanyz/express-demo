@@ -1,4 +1,6 @@
 // Build a web server
+const helmet = require("helmet");
+const morgan = require('morgan')
 const Joi = require("joi"); //used for input validation, it returns a class
 const express = require("express");
 const app = express();
@@ -8,6 +10,8 @@ app.use(express.json()); //important middleware that converts body to JSON
 app.use(log);
 app.use(express.urlencoded({ extended: true })); // do the same thing as express.json but with html forms
 app.use(express.static("public")); //middleware to serve static files (such as css & images ..etc) to the root of the site
+app.use(helmet()) //for security purposes
+app.use(morgan('tiny')) //logging http requests
 
 //create dummy database
 const courses = [
