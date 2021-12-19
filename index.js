@@ -21,7 +21,7 @@ app.use(log);
 app.use(express.urlencoded({ extended: true })); // do the same thing as express.json but with html forms
 app.use(express.static("public")); //middleware to serve static files (such as css & images ..etc) to the root of the site
 app.use(helmet()) //for security purposes
-app.use('api/courses', courses) // use the router 'courses' for any request related to the api 'api/courses'
+app.use('/api/courses', courses) // use the router 'courses' for any request related to the api 'api/courses'
 app.use('/', home);
 
 //Configuration
