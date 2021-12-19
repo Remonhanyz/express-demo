@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router(); // app doesn't work here so we use router
+const Joi = require("joi"); //used for input validation, it returns a class
 
 //create dummy database
 const courses = [

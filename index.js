@@ -4,7 +4,6 @@ const dbDebugger = require('debug')('app:db') //to define the name space for deb
 const config = require("config")
 const helmet = require("helmet");
 const morgan = require('morgan')
-const Joi = require("joi"); //used for input validation, it returns a class
 const express = require("express");
 const app = express();
 const log = require("./middleware/logger");
