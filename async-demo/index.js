@@ -7,7 +7,7 @@ function getRepositories(user) {
 }
 
 function getCommits(repos) {
-    getCommits(repo, displayCommits)
+    getCommits(repos[0], displayCommits)
 }
 
 function displayCommits(commits) {
@@ -22,8 +22,15 @@ function getUser(id, callback) {
     }, 2000);
 }
 
-function getRepositories(username, callback) {
+function getRepositories(username, callback) { // this differs from the previous function withe same name as the arguments are different
     setTimeout(() => {
         callback(['repo1', 'repo2', 'repo3']);
+    }, 2000);
+}
+
+//correction that should have been in the video
+function getCommits(repo, callback) {
+    setTimeout(() => {
+        callback(['commit1', 'commit2', 'commit3']);
     }, 2000);
 }
