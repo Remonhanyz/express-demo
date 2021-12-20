@@ -15,22 +15,25 @@ function displayCommits(commits) {
 }
 
 
-function getUser(id, callback) {
+function getUser(id) {
+    return new Promise((resolve, reject) => {
     setTimeout(() => {
         console.log('Reading a user from database....')
-        callback({id: id, gitHubUsername: 'mosh'})
-    }, 2000);
+        resolve({id: id, gitHubUsername: 'mosh'})
+    }, 2000)});
 }
 
-function getRepositories(username, callback) { // this differs from the previous function withe same name as the arguments are different
+function getRepositories(username) { // this differs from the previous function withe same name as the arguments are different
+    return new Promise((resolve, reject) => {
     setTimeout(() => {
-        callback(['repo1', 'repo2', 'repo3']);
-    }, 2000);
+        resolve(['repo1', 'repo2', 'repo3']);
+    }, 2000)});
 }
 
 //correction that should have been in the video
-function getCommits(repo, callback) {
+function getCommits(repo) {
+    return new Promise((resolve, reject) => {
     setTimeout(() => {
-        callback(['commit1', 'commit2', 'commit3']);
-    }, 2000);
+        resolve(['commit1', 'commit2', 'commit3']);
+    }, 2000)});
 }
