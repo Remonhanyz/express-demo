@@ -1,19 +1,12 @@
 console.log('Before'); //appears 1st (sync)
-getUser(1, getRepositories);
+
+getUser(1)
+    .then(user => getRepositories(user.gitHubUsername)) // .then to getUser()
+    .then(repos => getCommits(repos[0])) // .then to getRepositories()
+    .then(commits => console.log('Commits', commits))
+    .catch(err => console.log('Error', err.message))
+    
 console.log('After'); //appears 2nd (sync)
-
-function getRepositories(user) {
-    getRepositories(user.gitHubUsername, getCommits)
-}
-
-function getCommits(repos) {
-    getCommits(repos[0], displayCommits)
-}
-
-function displayCommits(commits) {
-    console.log(commits)
-}
-
 
 function getUser(id) {
     return new Promise((resolve, reject) => {
