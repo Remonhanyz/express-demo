@@ -1,5 +1,5 @@
 
-function log(req, res, nex) {
+function log(req, res, next) {
     next(); //go to next middleware in the pipe line
 }
 

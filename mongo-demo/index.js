@@ -12,11 +12,18 @@ const courseSchema = new mongoose.Schema({
     isPublished: Boolean
 })
 
-// Schema Types are:
-    // String
-    // Number
-    // Date
-    // Buffer (for binary values)
-    // Boolean
-    // ObjectID
-    // Array
+const Course = mongoose.model('Course', courseSchema) // a Course class
+
+async function createCourse() {
+    const course = new Course({
+        name: 'Node.js Course',
+        author: 'Mosh',
+        tags: ['node', 'backend'],
+        isPublished: true
+    }) // an object of the class Course
+
+    const result = await course.save() //return the course object that is saved in database (id is added automatically)
+    console.log(result)
+}
+
+createCourse()
