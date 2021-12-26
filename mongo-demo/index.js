@@ -32,7 +32,7 @@ async function getCourses() {
         .find({ author: /.*Mosh.*/i }) // regular expressions
         .limit(10) // limit the list to 10 results
         .sort({ name: 1 }) // sort the list in ascending (1) or descending (-1) order based on a key value
-        .select({ name: 1, tags: 1 }) // select the set of properties that you want to return from the schema (id is always returned  by default)
+        .count() // return number of documents meeting above critiereas
     
 }
 getCourses()
