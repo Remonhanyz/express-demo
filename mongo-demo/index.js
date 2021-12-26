@@ -33,6 +33,5 @@ async function getCourses() {
         .sort({ name: 1 }) // sort the list in ascending (1) or descending (-1) order based on a key value
         .select({ name: 1, tags: 1 }) // select the set of properties that you want to return from the schema (id is always returned  by default)
     
-    Course.findById() // returns a document
 }
 createCourse()
