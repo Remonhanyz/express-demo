@@ -23,15 +23,6 @@ const Course = mongoose.model("Course", courseSchema);
 // here the document is not returned but updated on the database immediatly
 
 async function updateCourses(id) {
-	// this doesn't return the document but updates the document directly on the database returns the number of documents that was modified
-	// const result = await Course.updateOne({ _id: id }, {
-	// 	$set: {
-	// 		author: 'Mosh',
-	// 		isPublished: false
-	// 	}
-	// });
-	
-	// this update the document and returns the updated document
 	const result = await Course.findByIDAndUpdate(id , {
 		$set: {
 			author: 'Mosh',
@@ -41,4 +32,11 @@ async function updateCourses(id) {
 	console.log(result);
 }
 
-updateCourses("5a68fdc3615eda645bc6bdec");
+
+async function removeCourses(id) {
+	// const result = await Course.deleteOne({ _id: id }); // (use deleteMany for deleting multiple documents) return the number of deleted documents
+	const result = await Course.findByIdAndRemove(id); //returns the document then delete it
+	console.log(result);
+}
+
+removeCourses("5a68fdc3615eda645bc6bdec");
