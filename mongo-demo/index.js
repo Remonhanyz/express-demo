@@ -6,36 +6,42 @@ mongoose
 	.catch((err) => console.error("Could not connect to MongoDB...", err));
 
 const courseSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 5, maxlength: 255,
-        // match: /pattern/
-    },
-    category: {
-        type: String,
-        required: true,
-        enum: ['web', 'mobile', 'network'] // array of valid inputs
-    },
+	name: {
+		type: String,
+		required: true,
+		minlength: 5,
+		maxlength: 255
+		// match: /pattern/
+	},
+	category: {
+		type: String,
+		required: true,
+		enum: ["web", "mobile", "network"] // array of valid inputs
+	},
 	author: String,
-    tags: {
-        type: Array,
-        validate: {
-            validator: function (v) {
-                return v && v.length > 0
-            }, //the array must not be empty
-            message: "A course should have at least one tag"
-        }
-    },
+	tags: {
+		type: Array,
+		validate: {
+			isAsync: true,
+			validator: function (v, callback) {
+				setTimeout(() => {
+					//Do some async work
+                    const result = v && v.length > 0;
+                    callback(result)
+				}, 4000);
+			}, //the array must not be empty
+			message: "A course should have at least one tag"
+		}
+	},
 	date: {type: Date, default: Date.now}, //data type is Date and the default value is now (this way you don't have to specify a date when you declare this object)
 	isPublished: Boolean,
 	price: {
 		type: Number,
 		required: function () {
 			return this.isPublished;
-        },
-        min: 10,
-        max: 200
+		},
+		min: 10,
+		max: 200
 	}
 });
 
