@@ -18,15 +18,7 @@ const courseSchema = new mongoose.Schema({
         enum: ['web', 'mobile', 'network'] // array of valid inputs
     },
 	author: String,
-    tags: {
-        type: Array,
-        validate: {
-            validator: function (v) {
-                return v && v.length > 0
-            }, //the array must not be empty
-            message: "A course should have at least one tag"
-        }
-    },
+	tags: [String],
 	date: {type: Date, default: Date.now}, //data type is Date and the default value is now (this way you don't have to specify a date when you declare this object)
 	isPublished: Boolean,
 	price: {
