@@ -16,7 +16,10 @@ const courseSchema = new mongoose.Schema({
 	category: {
 		type: String,
 		required: true,
-		enum: ["web", "mobile", "network"] // array of valid inputs
+		enum: ["web", "mobile", "network"], // array of valid inputs
+		lowercase: true, //converts text to lowercase
+		uppercase: true, //converts text to uppercase
+		trim: true // remove whitespaces
 	},
 	author: String,
 	tags: {
@@ -41,7 +44,9 @@ const courseSchema = new mongoose.Schema({
 			return this.isPublished;
 		},
 		min: 10,
-		max: 200
+		max: 200,
+		get: (v) => Math.round(v), // round the data when calling it from the database
+		set: (v) => Math.round(v) // round the data before adding it to the database
 	}
 });
 
@@ -71,7 +76,8 @@ async function createCourse() {
 
 async function getCourses(pageNumber, pageSize) {
 	// const pageNumber = 2
-	const courses = await Course.find({author: /.*Mosh.*/i}) // regular expressions
+	const courses = await Course
+		.find({ author: /.*Mosh.*/i }) // regular expressions
 		.skip((pageNumber - 1) * pageSize)
 		.limit(pageSize) // limit the list to 10 results
 		.sort({name: 1}) // sort the list in ascending (1) or descending (-1) order based on a key value
