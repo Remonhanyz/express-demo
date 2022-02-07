@@ -26,8 +26,8 @@ const courseSchema = new mongoose.Schema({
 			validator: function (v, callback) {
 				setTimeout(() => {
 					//Do some async work
-                    const result = v && v.length > 0;
-                    callback(result)
+					const result = v && v.length > 0;
+					callback(result);
 				}, 4000);
 			}, //the array must not be empty
 			message: "A course should have at least one tag"
@@ -64,7 +64,8 @@ async function createCourse() {
 		const result = await course.save(); //return the course object that is saved in database (id is added automatically)
 		console.log(result);
 	} catch (exeption) {
-		console.log(exeption.message);
+		for (field in exeption.errors)
+			console.log(exeption.errors[field].message);
 	}
 }
 
