@@ -38,7 +38,7 @@ async function createCourse() {
 }
 
 async function updateCourses(id) {
-	const result = await Course.findByIDAndUpdate(id , {
+	const result = await Course.findByIdAndUpdate(id , {
 		$set: {
 			author: 'Mosh',
 			isPublished: false
