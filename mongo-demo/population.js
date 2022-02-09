@@ -42,7 +42,8 @@ async function createCourse(name, author) {
 async function listCourses() { 
   const courses = await Course
     .find()
-    .select('name');
+    .populate("author", "name -_id") // to not show author id but show its name property only
+    .select('name author'); //the properties of course that will be availible in the courses variable
   console.log(courses);
 }
 
